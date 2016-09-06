@@ -25,6 +25,12 @@ export default class Gallows extends React.Component {
 						<line id="arm-left" 
 							className={this.props.remainingGuesses < 4 ? "op-on" : "op-off"}
 							x1="100" y1="220" x2="45" y2="250" />
+						<line id="the-swords" 
+							className={this.props.remainingGuesses < 4 ? "op-on" : "op-off"}
+							x1="45" y1="250" x2="40" y2="150" />
+						<line id="the-swords-handle" 
+							className={this.props.remainingGuesses < 4 ? "op-on" : "op-off"}
+							x1="30" y1="225" x2="60" y2="223" />
 						<line id="arm-right" 
 							className={this.props.remainingGuesses < 3 ? "op-on" : "op-off"}
 							x1="100" y1="220" x2="155" y2="250" />
