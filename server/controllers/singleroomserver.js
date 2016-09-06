@@ -34,7 +34,7 @@ module.exports = function (io, wordGenerator, restartDelay) {
   }
   if (restartDelay === undefined) {
   // Initialize RoomController to restart games after a 30 second delay
-    restartDelay = 10000;
+    restartDelay = 1000;
   }
   // Configure controller with above options
   controller.setWordGenerator(wordGenerator);
