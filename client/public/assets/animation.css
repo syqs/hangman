@@ -19,7 +19,9 @@
     z-index: -1;
     height: 100%;
 }*/
-
+#nothing {
+  background: blue;
+}
 .alphabets-inactive{
 	background: red
 }
