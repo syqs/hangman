@@ -7,7 +7,7 @@ export default class Themes extends React.Component {
 		super(props);
 		this.state = {
 			background: props.background,
-			snowInt: 55
+			snowInt: 5000
 		}
 	}
 	componentWillReceiveProps(){
@@ -16,9 +16,9 @@ export default class Themes extends React.Component {
 	}
 	componentDidUpdate() {
 
-		console.log("themes state", this.state)
 		if (this.state.background === "snowy"){
-		 	this.state.snowInt= 55
+		 	this.state.snowInt= Math.round(Math.random()*500)
+		 	console.log("flakes,", this.state.snowInt)
 		}
 		if (this.state.background !== "snowy"){
 		 	this.state.snowInt= 0
