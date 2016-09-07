@@ -94,6 +94,7 @@ export default class Room extends React.Component {
 			console.log("win!", res)
 			this.outcome.win = true;
 			this.outcome.player = res.playerId;
+			this.runAnimation();
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 		})
 
@@ -101,7 +102,6 @@ export default class Room extends React.Component {
 			console.log("lose!", res)
 			this.outcome.win = false;
 			this.outcome.player = res.playerId;
-			this.runAnimation();
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 
 		})
