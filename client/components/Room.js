@@ -131,7 +131,12 @@ export default class Room extends React.Component {
 
 	runAnimation(){
 		console.log("totaly running")
+		setTimeout(function(){
+			document.getElementById("unicorn").style.display = "none";
+			document.getElementById("gallowMan").style.display = "block";
+		},7000)
 		document.getElementById("unicorn").style.display = "block";
+		document.getElementById("gallowMan").style.display = "none";
 	}
 
 	setEndGameState(gameState, timeUntilNextGame){
