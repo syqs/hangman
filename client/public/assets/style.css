@@ -191,16 +191,11 @@ h1.game-title {
     -webkit-animation: move 7s;
     animation: move 7s;
 }
-/*
 
-#unicorn {
-    text-decoration: none;
-    padding-right: 20px;
-    left: 50%;
-    position: absolute;
-    -webkit-animation: move 5s;
-    animation: move 5s;
-}*/
+
+img#unicorn {
+   display: none;
+}
 
 #unicorn img {
     -webkit-transition: all 1s ease-in-out;

@@ -75,7 +75,7 @@ export default class Room extends React.Component {
 		this.serverAPI.onIncorrectGuess((res)=>{
 			console.log("Incorrect Guess", res);
 			if(res.playerId === this.playerId){
-				this.setGameState(res.gameState, res.coolDown);
+				this.setGameState(res.gameState);
 			} else{
 				this.setGameState(res.gameState);
 			}
@@ -101,6 +101,7 @@ export default class Room extends React.Component {
 			console.log("lose!", res)
 			this.outcome.win = false;
 			this.outcome.player = res.playerId;
+			this.runAnimation();
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 
 		})
@@ -126,6 +127,11 @@ export default class Room extends React.Component {
 	    		'isDone': gameState.isDone
 			})		
 		}
+	}
+
+	runAnimation(){
+		console.log("totaly running")
+		document.getElementById("unicorn").style.display = "block";
 	}
 
 	setEndGameState(gameState, timeUntilNextGame){
