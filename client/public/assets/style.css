@@ -188,8 +188,8 @@ h1.game-title {
     position: fixed; 
     right: -65px; 
     bottom: -50px;
-    -webkit-animation: move 7s;
-    animation: move 7s;
+    -webkit-animation: move 5s;
+    animation: move 5s;
 }
 
 
