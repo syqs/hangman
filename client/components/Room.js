@@ -95,7 +95,7 @@ export default class Room extends React.Component {
 			console.log("win!", res)
 			this.outcome.win = true;
 			this.outcome.player = res.playerId;
-			this.runAnimation();
+			this.runAnimation("win");
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 		})
 
@@ -103,7 +103,7 @@ export default class Room extends React.Component {
 			console.log("lose!", res)
 			this.outcome.win = false;
 			this.outcome.player = res.playerId;
-			this.runAnimation(2);
+			this.runAnimation("head");
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 
 		})
@@ -132,11 +132,15 @@ export default class Room extends React.Component {
 	}
 
 	runAnimation(choice){
-		if(choice){
+		if(choice !== "win"){
+			var choice = Math.ceil((Math.random() * 2))
+		}
+		if(choice === 1){
 			setTimeout(function(){
 				document.getElementById("train").style.display = "none";
 				document.getElementById("gallowMan").style.display = "block";
 			},2000)
+			document.getElementById("outcome").style.display = "block";
 			document.getElementById("train").style.display = "block";
 			setTimeout(function () {
 				document.getElementById("gallowMan").style.display = "none";	
@@ -148,14 +152,26 @@ export default class Room extends React.Component {
 				document.getElementById("nuse").style.display = "block";
 				document.getElementById("rope2").style.display = "none";
 				document.getElementById("rope").style.display = "block";
+				document.getElementById("outcome").style.display = "none";
 			},2000)
-		}else{
+		}else if(choice === 2){
+			setTimeout(function(){
+				document.getElementById("head").style.display = "none";
+				document.getElementById("noggin").style.display = "block";
+				document.getElementById("outcome").style.display = "none";
+			},2000)
+			document.getElementById("head").style.display = "block";
+			document.getElementById("noggin").style.display = "none";
+			document.getElementById("outcome").style.display = "block";
+		}else if(choice === "win"){
 			setTimeout(function(){
 				document.getElementById("unicorn").style.display = "none";
 				document.getElementById("gallowMan").style.display = "block";
+				document.getElementById("outcome").style.display = "none";
 			},3000)
 			document.getElementById("unicorn").style.display = "block";
 			document.getElementById("gallowMan").style.display = "none";
+			document.getElementById("outcome").style.display = "block";
 		}
 	}
 
