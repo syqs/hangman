@@ -133,9 +133,9 @@ export default class Room extends React.Component {
 
 	runAnimation(choice){
 		if(choice !== "win"){
-			var choice = Math.ceil((Math.random() * 2))
+			var choice = Math.ceil((Math.random() * 4))
 		}
-		if(choice === 1){
+		if(choice === 1 || choice === 3 || choice === 4){
 			setTimeout(function(){
 				document.getElementById("train").style.display = "none";
 				document.getElementById("gallowMan").style.display = "block";
