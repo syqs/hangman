@@ -4,6 +4,7 @@ var Room = require('../models/room.js');
 var RoomController = {};
 
 RoomController.create = function (io) {
+  console.log('I am in RoomController.create');
   var room = Room.create();
   console.log("roomid", room.getId());
   var restartDelay = 30000;

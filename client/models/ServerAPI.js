@@ -14,6 +14,7 @@ export default class ServerAPI {
   }
 
   connect() {
+    console.log('I am connecting now to io')
     this.client = io.connect('http://localhost:' + this.port);
   }
 
