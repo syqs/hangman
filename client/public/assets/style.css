@@ -164,7 +164,6 @@ h1.game-title {
 }
 
 
-
 @-webkit-keyframes move
 {
     from {
@@ -180,33 +179,45 @@ h1.game-title {
         right: 0;
     }
     to {
-        right: 50%;
+        right: 120%;
     }
+}
+@-webkit-keyframes moveTrain
+{
+    from {
+        left: -80%;
+    }
+    to {
+        left: 150%;
+    }
+}
+@keyframes moveTrain
+{
+    from {
+        left: -80%;
+    }
+    to {
+        left: 150%;
+    }
+}
+#rope2 {
+    display:none;
+}
+img#train{
+    position: fixed;
+    animation: moveTrain 2s;
+    top:200px;
+    display: none;
 }
 
 #unicorn { 
     position: fixed; 
     right: -65px; 
     bottom: -50px;
-    -webkit-animation: move 7s;
-    animation: move 7s;
-}
-/*
-
-#unicorn {
-    text-decoration: none;
-    padding-right: 20px;
-    left: 50%;
-    position: absolute;
     -webkit-animation: move 5s;
     animation: move 5s;
-}*/
+}
 
-#unicorn img {
-    -webkit-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out; 
-    -o-transition: all 1s ease-in-out; 
-    -ms-transition: all 1s ease-in-out; 
-    border-radius:60px;
-    transition-duration: 1s;
-    }
+img#unicorn {
+   display: none;
+}

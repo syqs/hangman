@@ -32,6 +32,7 @@ describe("Room", function () {
       var room = Room.create();
       var player = Player.create();
       room.join(player);
+      // expect(room.getPlayers()).to.deep.equal([player]);
       expect(room.getPlayers()).to.deep.equal([player]);
     });
   });
