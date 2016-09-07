@@ -24,14 +24,27 @@
   position: fixed;
   z-index: 2;
 }
+.room{
+  position: fixed;
+}
 canvas {
   display: block;
 }
 
 #snowy {
   position: fixed;
-  z-index: 1;
+  z-index: 0;
   background: url("http://dbclipart.com/wp-content/uploads/2016/03/Mountain-clip-art-free-download-free-clipart-images-2-2.png") 0 0;
+}
+#desert {
+  position: fixed;
+  z-index: 0;
+  background: url("https://0.s3.envato.com/files/129486789/22.png") 0 0;
+}
+#sea {
+  position: fixed;
+  z-index: 0;
+  background: url("http://www.publicdomainpictures.net/pictures/30000/velka/underwater-treasures.jpg") 0 0;
 }
 .alphabets-inactive{
 	background: red

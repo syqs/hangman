@@ -18,7 +18,8 @@ export default class Room extends React.Component {
     		isDone: false,
 			players:[],
 			coolDown:0,
-			timeUntilNextGame: 0
+			timeUntilNextGame: 0,
+			background: "snowy"
 		};
 		this.playerId = ""
 		this.outcome = {
@@ -141,7 +142,7 @@ export default class Room extends React.Component {
 	 componentDidMount() {
 	    function drawSnow(){
 			//canvas init
-			console.log("this:" ,this);
+			
 			var canvas = document.getElementById("snowy");
 			var ctx = canvas.getContext("2d");
 			
@@ -220,7 +221,6 @@ export default class Room extends React.Component {
 		drawSnow();
 	}
 	render() {
-	
 		console.log("RENDER ROOM", this.state)
 		var guessedLettersUpper = this.state.guessedLetters.map((letter)=>{return letter.toUpperCase()});
 		return(
@@ -230,16 +230,25 @@ export default class Room extends React.Component {
 					outcome={this.outcome}
 					timeUntilNextGame = {this.state.timeUntilNextGame}
 					/>
-				<canvas id="snowy" class="canvas"></canvas>		
+						
 				<nav className="navbar navbar-default navbar-static-top">
 
 				  <div className="container navcon">
 				    <h1 className="game-title">HANGMAN</h1>
-				    
+				    <select name="select" 
+				     onChange = {(e) => {
+				    	console.log(e.target.value)
+				    	this.state.background = e.target.value;
+				    	this.forceUpdate()
+				    }}>
+					  <option value="snowy" >Snowy winter</option> 
+					  <option value="desert">Desert</option>
+					  <option value="sea">Under the sea</option>
+					</select>
 				  </div>
 				</nav>
-
-				<div className="container">
+				<canvas id={this.state.background} class="canvas"></canvas>
+				<div class="container">
 					<div className="row">
 						<div className="col-xs-12 col-sm-2" id="player-col">
 							<Players players={this.state.players}/>
