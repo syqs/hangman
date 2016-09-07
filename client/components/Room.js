@@ -76,7 +76,7 @@ export default class Room extends React.Component {
 		this.serverAPI.onIncorrectGuess((res)=>{
 			console.log("Incorrect Guess", res);
 			if(res.playerId === this.playerId){
-				this.setGameState(res.gameState, res.coolDown);
+				this.setGameState(res.gameState);
 			} else{
 				this.setGameState(res.gameState);
 			}
@@ -95,6 +95,7 @@ export default class Room extends React.Component {
 			console.log("win!", res)
 			this.outcome.win = true;
 			this.outcome.player = res.playerId;
+			this.runAnimation();
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 		})
 
@@ -102,6 +103,7 @@ export default class Room extends React.Component {
 			console.log("lose!", res)
 			this.outcome.win = false;
 			this.outcome.player = res.playerId;
+			this.runAnimation(2);
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 
 		})
@@ -129,6 +131,34 @@ export default class Room extends React.Component {
 		}
 	}
 
+	runAnimation(choice){
+		if(choice){
+			setTimeout(function(){
+				document.getElementById("train").style.display = "none";
+				document.getElementById("gallowMan").style.display = "block";
+			},2000)
+			document.getElementById("train").style.display = "block";
+			setTimeout(function () {
+				document.getElementById("gallowMan").style.display = "none";	
+				document.getElementById("rope").style.display = "none";
+				document.getElementById("nuse").style.display = "none";
+				document.getElementById("rope2").style.display = "block";	
+			},600)
+			setTimeout(function () {
+				document.getElementById("nuse").style.display = "block";
+				document.getElementById("rope2").style.display = "none";
+				document.getElementById("rope").style.display = "block";
+			},2000)
+		}else{
+			setTimeout(function(){
+				document.getElementById("unicorn").style.display = "none";
+				document.getElementById("gallowMan").style.display = "block";
+			},3000)
+			document.getElementById("unicorn").style.display = "block";
+			document.getElementById("gallowMan").style.display = "none";
+		}
+	}
+
 	setEndGameState(gameState, timeUntilNextGame){
 		// console.log("setting game state END: ", gameState, timeUntilNextGame)
 			this.setState({
@@ -138,8 +168,8 @@ export default class Room extends React.Component {
 	    		'isDone': gameState.isDone,
 	    		'timeUntilNextGame': timeUntilNextGame
 			})		
-		
 	}
+
 	render() {
 		console.log("RENDER ROOM", this.state)
 		var guessedLettersUpper = this.state.guessedLetters.map((letter)=>{return letter.toUpperCase()});
@@ -192,7 +222,4 @@ export default class Room extends React.Component {
 			</div>
 		)
 	}
-
-
-
 }
