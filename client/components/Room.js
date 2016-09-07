@@ -102,6 +102,7 @@ export default class Room extends React.Component {
 			console.log("lose!", res)
 			this.outcome.win = false;
 			this.outcome.player = res.playerId;
+			this.runAnimation(2);
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 
 		})
@@ -129,14 +130,32 @@ export default class Room extends React.Component {
 		}
 	}
 
-	runAnimation(){
-		console.log("totaly running")
-		setTimeout(function(){
-			document.getElementById("unicorn").style.display = "none";
-			document.getElementById("gallowMan").style.display = "block";
-		},3000)
-		document.getElementById("unicorn").style.display = "block";
-		document.getElementById("gallowMan").style.display = "none";
+	runAnimation(choice){
+		if(choice){
+			setTimeout(function(){
+				document.getElementById("train").style.display = "none";
+				document.getElementById("gallowMan").style.display = "block";
+			},2000)
+			document.getElementById("train").style.display = "block";
+			setTimeout(function () {
+				document.getElementById("gallowMan").style.display = "none";	
+				document.getElementById("rope").style.display = "none";
+				document.getElementById("nuse").style.display = "none";
+				document.getElementById("rope2").style.display = "block";	
+			},600)
+			setTimeout(function () {
+				document.getElementById("nuse").style.display = "block";
+				document.getElementById("rope2").style.display = "none";
+				document.getElementById("rope").style.display = "block";
+			},2000)
+		}else{
+			setTimeout(function(){
+				document.getElementById("unicorn").style.display = "none";
+				document.getElementById("gallowMan").style.display = "block";
+			},3000)
+			document.getElementById("unicorn").style.display = "block";
+			document.getElementById("gallowMan").style.display = "none";
+		}
 	}
 
 	setEndGameState(gameState, timeUntilNextGame){
@@ -148,12 +167,11 @@ export default class Room extends React.Component {
 	    		'isDone': gameState.isDone,
 	    		'timeUntilNextGame': timeUntilNextGame
 			})		
-		
 	}
-	 componentDidMount() {
+
+	componentDidMount() {
 	    function drawSnow(){
 			//canvas init
-			
 			var canvas = document.getElementById("snowy");
 			var ctx = canvas.getContext("2d");
 			
@@ -281,7 +299,4 @@ export default class Room extends React.Component {
 			</div>
 		)
 	}
-
-
-
 }
