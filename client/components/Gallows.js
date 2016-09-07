@@ -9,38 +9,18 @@ export default class Gallows extends React.Component {
 	render() {
 		return(
 			<div className="gallows">
-				<svg width="200" height="500" >
+				<svg width="200" height="800" >
 					
 					<g id="gallowRope">
 						<line id="rope" x1="100" y1="0" x2="100" y2="165" />
 						<line id="rope2" x1="100" y1="0" x2="100" y2="165" >
-	
-				  		 <animate id="myLoop"
-				         begin="0s;myLoop.end"
-				         attributeType="XML"
-						 attributeName="x2"
-						 from="100"
-						 to="140"
-						 dur="1s"
-						 repeatCount="3" />
+			 			<animate attributeName="x2"
+		                 attributeType="XML"
+		                 dur="3s"
+		                 values="100 ; 140 ; 60 ; 140 ; 100"
+		                 keyTimes="0 ; 0.25 ; 0.5 ; 0.75 ; 1"
+		                 repeatCount="indefinite"/>
 
-						<set begin="myLoop.begin"
-						     attributeType="XML"
-						     attributeName="x2"
-						     from="140"
-						     to="60" />
-						
-						<set begin="myLoop.repeat(1)"
-						     attributeType="XML"
-						     attributeName="x2"
-						     from="60"
-						     to="140" />
-						
-						<set begin="myLoop.repeat(2)"
-						     attributeType="XML"
-						     attributeName="x2"
-						     from="140"
-						     to="100" />
 						</line>
 						<circle id="nuse" cx="100" cy="175" r="16" />
 					</g>
@@ -48,6 +28,16 @@ export default class Gallows extends React.Component {
 						<circle id="noggin" 
 							className={this.props.remainingGuesses < 6 ? "op-on" : "op-off"}
 							cx="100" cy="158" r="30" />
+						<circle id="head" 
+							className={this.props.remainingGuesses < 6 ? "op-on" : "op-off"}
+							cx="100" cy="158" r="30">
+							<animate attributeName="cy"
+			                 attributeType="XML"
+			                 dur="3s"
+			                 values="158 ; 400 ; 800"
+			                 keyTimes="0 ; 0.5; 1"
+			                 repeatCount="indefinite"/>
+							</circle>
 						<line id="torso" 
 							className={this.props.remainingGuesses < 5 ? "op-on" : "op-off"}
 							x1="100" y1="193" x2="100" y2="290" />
