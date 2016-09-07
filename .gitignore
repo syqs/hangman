@@ -3,3 +3,10 @@ npm-debug.log
 .DS_Store
 test/.DS_Store
 test/client/.DS_Store
+client/.DS_Store
+client/components/.DS_Store
+client/models/.DS_Store
+client/public/.DS_Store
+client/public/assets/.DS_Store
+server/.DS_Store
+
