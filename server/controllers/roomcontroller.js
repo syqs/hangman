@@ -15,6 +15,7 @@ RoomController.create = function (io) {
   // Setup Controller's Public API
   var controller = {
     newGame: function (solution) {
+      console.log("solution", solution);
       room.newGame( solution !== undefined ? solution : wordGenerator() );
     },
     setWordGenerator: function (fn) {
