@@ -219,7 +219,7 @@ export default class Room extends React.Component {
 					/>
 					<div className="row">
 						<div className="col-xs-12 col-sm-2" id="player-col">
-							<Players players={this.state.players}/>
+							
 						</div>	
 						<div className="col-xs-9 col-sm-8" id="board-col">
 							<GameBoard 
