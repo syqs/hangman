@@ -18,7 +18,6 @@ Room.create = function () {
   var onCooldownCallback = nullCallback;
   var onWinCallback = nullCallback;
   var onLoseCallback = nullCallback;
-  console.log('I am in Room.create');
   var room = {
     getId: function () {
       return id;
@@ -42,7 +41,7 @@ Room.create = function () {
     },
     newGame: function (solution) {
       room.resetCooldowns();
-      console.log('solution in newGame->room.js',solution)
+      console.log('solution in newGame->room.js',solution);
       game = Game.create(solution);
     },
     guessLetter: function (player, letter) {

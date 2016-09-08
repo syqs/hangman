@@ -70,4 +70,8 @@ export default class ServerAPI {
     this.client.on('enterRoom', callback);
   }
 
+  getImageUrl (callback) {
+    this.client.on('getImageUrl', callback);
+  }
+
 }
