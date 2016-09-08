@@ -18,10 +18,16 @@ export default class Room extends React.Component {
     		remainingGuesses: 6,
     		isDone: false,
 			players:[],
+			coolDown:0,
+			timeUntilNextGame: 0,
 			background: "snowy",
+<<<<<<< HEAD
 			coolDown:0,
 			myRoom: "",
 
+=======
+			hintPic:''
+>>>>>>> 2d54a2d34232c9b2262905a42b4ac9496642769c
 		};
 		this.playerId = ""
 		this.outcome = {
@@ -47,6 +53,14 @@ export default class Room extends React.Component {
 	    		'isDone': res.gameState.isDone,
 	    		'roomId' : res.roomId
 			});
+		})
+
+
+		this.serverAPI.getImageUrl((hintPic)=>{
+			console.log("hintPic url", hintPic.url);
+			this.setState({
+				hintPic: hintPic.url
+			})
 		})
 
 		// Update players
@@ -205,7 +219,7 @@ export default class Room extends React.Component {
 				<nav className="navbar navbar-default navbar-static-top">
 
 				  <div className="container navcon">
-				    <h1 className="game-title">HANGMAN</h1>
+				    <h1 className="game-title">HANGMAN 2000</h1>
 				  <select name="select" className="dropMenu"
 				     onChange = {(e) => {
 				    	this.state.background = e.target.value;
@@ -224,7 +238,7 @@ export default class Room extends React.Component {
 					/>
 					<div className="row">
 						<div className="col-xs-12 col-sm-2" id="player-col">
-							<Players players={this.state.players}/>
+							
 						</div>	
 						<div className="col-xs-9 col-sm-8" id="board-col">
 							<GameBoard 
@@ -233,6 +247,7 @@ export default class Room extends React.Component {
 								remainingGuesses={this.state.remainingGuesses} 
 								serverAPI = {this.serverAPI}
 								coolDown = {this.state.coolDown}
+								hintPicUrl = {this.state.hintPic} 
 								/>
 						</div>
 						<div className="col-xs-3 col-sm-2" id="gallows-col">

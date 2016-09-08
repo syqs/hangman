@@ -19,7 +19,7 @@ export default class ServerAPI {
   }
 
   connect() {
-    this.client.handshake.headers.cookie = 0;
+    console.log('I am connecting now to io')
     this.client = io.connect('http://localhost:' + this.port);
   }
 
@@ -73,6 +73,10 @@ export default class ServerAPI {
 
   onEnterRoom (callback) {
     this.client.on('enterRoom', callback);
+  }
+
+  getImageUrl (callback) {
+    this.client.on('getImageUrl', callback);
   }
 
 }
