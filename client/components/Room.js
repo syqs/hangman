@@ -4,9 +4,11 @@ import GameBoard from './GameBoard';
 import Gallows from './Gallows.js';
 import Outcome from './Outcome.js';
 import Players from './Players';
-
+import Dropdown from 'react-simple-dropdown';
+import Themes from "./Themes.js"
 
 export default class Room extends React.Component {
+	
 
 	constructor(props) {
 		super(props);
@@ -17,7 +19,9 @@ export default class Room extends React.Component {
     		isDone: false,
 			players:[],
 			coolDown:0,
-			timeUntilNextGame: 0
+			timeUntilNextGame: 0,
+			background: "snowy",
+			hintPic:''
 		};
 		this.playerId = ""
 		this.outcome = {
@@ -40,6 +44,14 @@ export default class Room extends React.Component {
 	    		'remainingGuesses': res.gameState.remainingGuesses,
 	    		'isDone': res.gameState.isDone
 			});
+		})
+
+
+		this.serverAPI.getImageUrl((hintPic)=>{
+			console.log("hintPic url", hintPic.url);
+			this.setState({
+				hintPic: hintPic.url
+			})
 		})
 
 		// Update players
@@ -73,7 +85,7 @@ export default class Room extends React.Component {
 		this.serverAPI.onIncorrectGuess((res)=>{
 			console.log("Incorrect Guess", res);
 			if(res.playerId === this.playerId){
-				this.setGameState(res.gameState, res.coolDown);
+				this.setGameState(res.gameState);
 			} else{
 				this.setGameState(res.gameState);
 			}
@@ -92,6 +104,7 @@ export default class Room extends React.Component {
 			console.log("win!", res)
 			this.outcome.win = true;
 			this.outcome.player = res.playerId;
+			this.runAnimation("win");
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 		})
 
@@ -99,6 +112,7 @@ export default class Room extends React.Component {
 			console.log("lose!", res)
 			this.outcome.win = false;
 			this.outcome.player = res.playerId;
+			this.runAnimation("head");
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 
 		})
@@ -126,6 +140,50 @@ export default class Room extends React.Component {
 		}
 	}
 
+	runAnimation(choice){
+		if(choice !== "win"){
+			var choice = Math.ceil((Math.random() * 2))
+		}
+		if(choice === 1){
+			setTimeout(function(){
+				document.getElementById("train").style.display = "none";
+				document.getElementById("gallowMan").style.display = "block";
+			},2000)
+			document.getElementById("outcome").style.display = "block";
+			document.getElementById("train").style.display = "block";
+			setTimeout(function () {
+				document.getElementById("gallowMan").style.display = "none";	
+				document.getElementById("rope").style.display = "none";
+				document.getElementById("nuse").style.display = "none";
+				document.getElementById("rope2").style.display = "block";	
+			},600)
+			setTimeout(function () {
+				document.getElementById("nuse").style.display = "block";
+				document.getElementById("rope2").style.display = "none";
+				document.getElementById("rope").style.display = "block";
+				document.getElementById("outcome").style.display = "none";
+			},2000)
+		}else if(choice === 2){
+			setTimeout(function(){
+				document.getElementById("head").style.display = "none";
+				document.getElementById("noggin").style.display = "block";
+				document.getElementById("outcome").style.display = "none";
+			},2000)
+			document.getElementById("head").style.display = "block";
+			document.getElementById("noggin").style.display = "none";
+			document.getElementById("outcome").style.display = "block";
+		}else if(choice === "win"){
+			setTimeout(function(){
+				document.getElementById("unicorn").style.display = "none";
+				document.getElementById("gallowMan").style.display = "block";
+				document.getElementById("outcome").style.display = "none";
+			},3000)
+			document.getElementById("unicorn").style.display = "block";
+			document.getElementById("gallowMan").style.display = "none";
+			document.getElementById("outcome").style.display = "block";
+		}
+	}
+
 	setEndGameState(gameState, timeUntilNextGame){
 		// console.log("setting game state END: ", gameState, timeUntilNextGame)
 			this.setState({
@@ -135,7 +193,6 @@ export default class Room extends React.Component {
 	    		'isDone': gameState.isDone,
 	    		'timeUntilNextGame': timeUntilNextGame
 			})		
-		
 	}
 
 	render() {
@@ -148,17 +205,30 @@ export default class Room extends React.Component {
 					outcome={this.outcome}
 					timeUntilNextGame = {this.state.timeUntilNextGame}
 					/>
-
+						
 				<nav className="navbar navbar-default navbar-static-top">
+
 				  <div className="container navcon">
-				    <h1 className="game-title">HANGMAN</h1>
+				    <h1 className="game-title">HANGMAN 2000</h1>
+				  <select name="select" className="dropMenu"
+				     onChange = {(e) => {
+				    	this.state.background = e.target.value;
+				    	console.log("back", this.state.background)
+				    	this.forceUpdate()
+				    }}>
+					<option value="snowy" >Snowy winter</option> 
+					<option value="desert">Desert</option>
+					<option value="sea">Under the sea</option>
+				  </select>
 				  </div>
 				</nav>
-
-				<div className="container">
+				<div class="container">
+					<Themes 
+						background={this.state.background}
+					/>
 					<div className="row">
 						<div className="col-xs-12 col-sm-2" id="player-col">
-							<Players players={this.state.players}/>
+							
 						</div>	
 						<div className="col-xs-9 col-sm-8" id="board-col">
 							<GameBoard 
@@ -167,6 +237,7 @@ export default class Room extends React.Component {
 								remainingGuesses={this.state.remainingGuesses} 
 								serverAPI = {this.serverAPI}
 								coolDown = {this.state.coolDown}
+								hintPicUrl = {this.state.hintPic} 
 								/>
 						</div>
 						<div className="col-xs-3 col-sm-2" id="gallows-col">
@@ -177,5 +248,4 @@ export default class Room extends React.Component {
 			</div>
 		)
 	}
-
 }

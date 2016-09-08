@@ -10,7 +10,7 @@ var Room = {};
 Room.create = function () {
   var id = uuid.v4();
   var playersById = {};
-  var cooldownDuration = 3000;
+  var cooldownDuration = 1000;
   var cooldowns = {}; // stores cooldowns by player id
   var game = null; // current game
   var onCorrectGuessCallback = nullCallback;
@@ -41,6 +41,7 @@ Room.create = function () {
     },
     newGame: function (solution) {
       room.resetCooldowns();
+      console.log('solution in newGame->room.js',solution);
       game = Game.create(solution);
     },
     guessLetter: function (player, letter) {

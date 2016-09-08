@@ -13,7 +13,7 @@ div {
 }
 
 .container {
-    max-width: 1050px;
+    max-width: 1600px;
 }
 
 .room{
@@ -40,7 +40,7 @@ div {
 }
 
 .alphabets {
-    max-width: 330px;
+    max-width: 600px;
     margin: 40px auto;
 }
 
@@ -50,10 +50,11 @@ div {
     border-radius: 5px;
     background-color: #CC3333;
     color: white;
-    padding: 4px 1px; 
-    width: 30px;
-    height: 30px;
+    padding: 18px 1px; 
+    width: 60px;
+    height: 60px;
     margin: 3px; 
+    cursor: pointer;
 }
 
 .alphabet-guessed{
@@ -111,6 +112,12 @@ div {
     border-radius: .3rem;
     outline: 0;
     opacity: 1;
+
+}
+#outcome{
+    background-image: url("http://wallpapercave.com/wp/6UGe1vL.png");
+    background-position: center;
+    background-size:cover;
 }
 
 .gallows{
@@ -161,4 +168,81 @@ h1.game-title {
 
 #player-col, #board-col {
     padding-top: 25px;
+}
+
+/*the win or lose msg*/
+#outcome {
+    display: none;
+}
+
+
+@-webkit-keyframes move
+{
+    from {
+        right: 0;
+    }
+    to {
+        right: 50%;
+    }
+}
+@keyframes move
+{
+    from {
+        right: 0;
+    }
+    to {
+        right: 120%;
+    }
+}
+@-webkit-keyframes moveTrain
+{
+    from {
+        left: -80%;
+    }
+    to {
+        left: 150%;
+    }
+}
+@keyframes moveTrain
+{
+    from {
+        left: -80%;
+    }
+    to {
+        left: 150%;
+    }
+}
+
+#rope2 {
+    display:none;
+}
+#head {
+    display: none;
+}
+
+img#train{
+    position: fixed;
+    animation: moveTrain 2s;
+    top:260px;
+    display: none;
+}
+
+#unicorn { 
+    position: fixed; 
+    right: -65px; 
+    bottom: -50px;
+    -webkit-animation: move 5s;
+    animation: move 5s;
+}
+
+img#unicorn {
+   display: none;
+}
+
+h1, h2, h3 {
+    margin-top: 10px;
+}
+
+.room {
+    width:100%;
 }
