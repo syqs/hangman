@@ -21,14 +21,11 @@ export default class Room extends React.Component {
 			coolDown:0,
 			timeUntilNextGame: 0,
 			background: "snowy",
-<<<<<<< HEAD
 			coolDown:0,
 			myRoom: "",
-
-=======
 			hintPic:''
->>>>>>> 2d54a2d34232c9b2262905a42b4ac9496642769c
 		};
+		
 		this.playerId = ""
 		this.outcome = {
 			win: true,
