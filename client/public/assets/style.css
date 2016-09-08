@@ -13,7 +13,7 @@ div {
 }
 
 .container {
-    max-width: 1050px;
+    max-width: 1600px;
 }
 
 .room{
@@ -231,3 +231,8 @@ img#train{
 img#unicorn {
    display: none;
 }
+
+
+h1, h2, h3 {
+    margin-top: 10px;
+    }
