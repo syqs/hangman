@@ -19,7 +19,8 @@ export default class Room extends React.Component {
     		isDone: false,
 			players:[],
 			background: "snowy",
-			coolDown:0
+			coolDown:0,
+			myRoom: "",
 
 		};
 		this.playerId = ""
@@ -36,12 +37,15 @@ export default class Room extends React.Component {
 			this.playerId = res.playerId;
 			var playerList = res.players.slice();
 			//playerList.push(res.playerId);
+			console.log(document.cookie, "cookie!!");
+			document.cookie = "roomId=" + res.roomId; 
 			this.setState({
 				'players' : playerList,
 		        'word':  res.gameState.word,
 	    		'guessedLetters': res.gameState.guessedLetters,
 	    		'remainingGuesses': res.gameState.remainingGuesses,
-	    		'isDone': res.gameState.isDone
+	    		'isDone': res.gameState.isDone,
+	    		'roomId' : res.roomId
 			});
 		})
 
@@ -52,7 +56,8 @@ export default class Room extends React.Component {
 			console.log("playerlist: ", playerList)
 			playerList.push(res.playerId);
 			this.setState({
-				players: playerList
+				players: playerList,
+				myRoom: res.roomId
 			})
 		});
 
