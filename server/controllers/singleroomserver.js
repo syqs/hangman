@@ -39,7 +39,9 @@ module.exports = function (io, wordGenerator, restartDelay) {
   // Configure controller with above options
 
   return function onConnectionHandler (socket) {
-  var cookieRoomId = socket.handshake.headers.cookie.substr(socket.handshake.headers.cookie.indexOf("roomId")+7);
+    var cookieRoomId = 'nothing';
+    if (socket.handshake.headers.cookie)
+      cookieRoomId = socket.handshake.headers.cookie.substr(socket.handshake.headers.cookie.indexOf("roomId")+7);
   var savedIndex = -1;
   for(var index=0; index<controller.length; index++){
     console.log(controller[index].getRoom().getId(), "and ", cookieRoomId)
