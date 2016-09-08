@@ -111,6 +111,12 @@ div {
     border-radius: .3rem;
     outline: 0;
     opacity: 1;
+
+}
+#outcome{
+    background-image: url("http://wallpapercave.com/wp/6UGe1vL.png");
+    background-position: center;
+    background-size:cover;
 }
 
 .gallows{
