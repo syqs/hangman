@@ -26,7 +26,7 @@ RoomController.create = function (io) {
     getRoom: function () {
       return room;
     },
-    join: function (player) {
+    join: function (player, location) {
       room.join(player);
       var socket = player.getSocket();
       socket.join(room.getId());
