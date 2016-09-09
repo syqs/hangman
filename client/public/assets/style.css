@@ -68,7 +68,14 @@ div {
 
 #guessed-row {
     text-align: left;
-    margin-left: 30%;
+    width: 300px;
+    margin-left: 35%;
+    background: azure;
+    padding-left: 25px;
+    opacity: 0.8;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
 }
 
 .wordLetters{
@@ -152,13 +159,13 @@ div {
 }
 
 .navbar {
-    background-color: #c33;
+    background-color: #541515;
     margin-bottom: 0px;
 }
 
 h1.game-title {
 
-    background-color: #c33;
+    background-color: #541515;
     color: white;
 }
 
@@ -295,4 +302,9 @@ h1, h2, h3 {
     top: 33%;
     right:9%;
     display: none;
+}
+@media (min-width: 1200px){
+    .container {
+      width:100%;
+    }
 }
