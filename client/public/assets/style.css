@@ -117,7 +117,7 @@ div {
 }
 
 .gallows{
-    height: 500px;
+    height: 700px;
 }
 
 #gallowStructure {
@@ -247,4 +247,9 @@ h1, h2, h3 {
     top: 100px;
     width: 260px;
     left: -118px;
+}
+#fire {
+    position:fixed;
+    bottom: 0;
+    display: none;
 }
