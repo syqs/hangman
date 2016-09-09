@@ -155,50 +155,74 @@ export default class Room extends React.Component {
 	}
 
 	runAnimation(choice){
-		setTimeout(function () {
-			document.getElementById("fire").style.display = "none";
-		},4000)
-		if(choice !== "win"){
-			var choice = Math.ceil((Math.random() * 2))
-		}
-		if(choice === 1){
+		if(this.state.background === "sea"){
+			document.getElementById("gallowMan").style.display = "block";
 			setTimeout(function(){
-				document.getElementById("train").style.display = "none";
-				document.getElementById("gallowMan").style.display = "block";
-			},2000)
-			document.getElementById("outcome").style.display = "block";
-			document.getElementById("train").style.display = "block";
-			setTimeout(function () {
-				document.getElementById("gallowMan").style.display = "none";	
-				document.getElementById("rope").style.display = "none";
-				document.getElementById("nuse").style.display = "none";
-				document.getElementById("rope2").style.display = "block";	
-			},600)
-			setTimeout(function () {
-				document.getElementById("nuse").style.display = "block";
-				document.getElementById("rope2").style.display = "none";
-				document.getElementById("rope").style.display = "block";
-				document.getElementById("outcome").style.display = "none";
-			},2000)
-		}else if(choice === 2){
-			setTimeout(function(){
-				document.getElementById("head").style.display = "none";
-				document.getElementById("noggin").style.display = "block";
-				document.getElementById("outcome").style.display = "none";
-			},2000)
-			document.getElementById("head").style.display = "block";
-			document.getElementById("noggin").style.display = "none";
-			document.getElementById("outcome").style.display = "block";
-		}else if(choice === "win"){
-			setTimeout(function(){
-				document.getElementById("unicorn").style.display = "none";
-				document.getElementById("gallowMan").style.display = "block";
-				document.getElementById("outcome").style.display = "none";
+					document.getElementById("seahorse").style.display = "none";
+					document.getElementById("gallowMan").style.display = "block";
+				},3000)
+				document.getElementById("outcome").style.display = "block";
+				document.getElementById("seahorse").style.display = "block";
+				setTimeout(function () {
+					document.getElementById("bloodfountain").style.display = "block";	
+					document.getElementById("rope").style.display = "none";
+					document.getElementById("nuse").style.display = "none";	
 
-			},3000)
-			document.getElementById("unicorn").style.display = "block";
-			document.getElementById("gallowMan").style.display = "none";
-			document.getElementById("outcome").style.display = "block";
+				},1800)
+				setTimeout(function () {
+					document.getElementById("nuse").style.display = "block";
+					document.getElementById("bloodfountain").style.display = "none";
+					document.getElementById("rope").style.display = "block";
+					document.getElementById("outcome").style.display = "none";
+				},3000)
+		}else{
+
+			setTimeout(function () {
+				document.getElementById("fire").style.display = "none";
+			},4000)
+
+			if(choice !== "win"){
+				var choice = Math.ceil((Math.random() * 2))
+			}
+			if(choice === 1){
+				setTimeout(function(){
+					document.getElementById("train").style.display = "none";
+					document.getElementById("gallowMan").style.display = "block";
+				},2000)
+				document.getElementById("outcome").style.display = "block";
+				document.getElementById("train").style.display = "block";
+				setTimeout(function () {
+					document.getElementById("gallowMan").style.display = "none";	
+					document.getElementById("rope").style.display = "none";
+					document.getElementById("nuse").style.display = "none";
+					document.getElementById("rope2").style.display = "block";	
+				},600)
+				setTimeout(function () {
+					document.getElementById("nuse").style.display = "block";
+					document.getElementById("rope2").style.display = "none";
+					document.getElementById("rope").style.display = "block";
+					document.getElementById("outcome").style.display = "none";
+				},2000)
+			}else if(choice === 2){
+				setTimeout(function(){
+					document.getElementById("head").style.display = "none";
+					document.getElementById("noggin").style.display = "block";
+					document.getElementById("outcome").style.display = "none";
+				},2000)
+				document.getElementById("head").style.display = "block";
+				document.getElementById("noggin").style.display = "none";
+				document.getElementById("outcome").style.display = "block";
+			}else if(choice === "win"){
+				setTimeout(function(){
+					document.getElementById("unicorn").style.display = "none";
+					document.getElementById("gallowMan").style.display = "block";
+					document.getElementById("outcome").style.display = "none";
+
+				},3000)
+				document.getElementById("unicorn").style.display = "block";
+				document.getElementById("gallowMan").style.display = "none";
+				document.getElementById("outcome").style.display = "block";
+			}
 		}
 	}
 
