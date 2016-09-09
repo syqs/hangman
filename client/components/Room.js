@@ -122,7 +122,7 @@ export default class Room extends React.Component {
 			console.log("lose!", res)
 			this.outcome.win = false;
 			this.outcome.player = res.playerId;
-			this.runAnimation("head");
+			this.runAnimation(0);
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 
 		})
@@ -155,6 +155,7 @@ export default class Room extends React.Component {
 	}
 
 	runAnimation(choice){
+		var theState = 0;
 		if(this.state.background === "sea"){
 			document.getElementById("gallowMan").style.display = "block";
 			setTimeout(function(){
@@ -182,7 +183,8 @@ export default class Room extends React.Component {
 			},4000)
 
 			if(choice !== "win"){
-				var choice = Math.ceil((Math.random() * 2))
+				choice = theState + 1;
+				theState = choice;
 			}
 			if(choice === 1){
 				setTimeout(function(){
