@@ -209,6 +209,29 @@ h1.game-title {
     }
 }
 
+@-webkit-keyframes moveSeahorse
+{
+    from {
+        left: 10%;
+        bottom:0%;        
+    }
+    to {
+        left: 150%;
+        bottom:70%;
+    }
+}
+@keyframes moveSeahorse
+{
+    from {
+        left: 10%;
+        bottom:0%;
+    }
+    to {
+        left: 150%;
+        bottom:70%;
+    }
+}
+
 #rope2 {
     display:none;
 }
@@ -222,6 +245,12 @@ img#train{
     top:260px;
     display: none;
 }
+img#seahorse{
+    position: absolute;
+    animation: moveSeahorse 5s;
+    bottom:0px;
+    display: none;
+}
 
 #unicorn { 
     position: absolute; 
@@ -232,6 +261,9 @@ img#train{
 }
 
 img#unicorn {
+   display: none;
+}
+img#seahorse {
    display: none;
 }
 
@@ -251,5 +283,11 @@ h1, h2, h3 {
 #fire {
     position:fixed;
     bottom: 0;
+    display: none;
+}
+#bloodfountain {
+    position:fixed;
+    top: 33%;
+    right:9%;
     display: none;
 }
