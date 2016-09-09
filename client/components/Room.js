@@ -90,7 +90,10 @@ export default class Room extends React.Component {
 		});
 
 		this.serverAPI.onIncorrectGuess((res)=>{
-			console.log("Incorrect Guess", res);
+			console.log("Incorrect Guess", this.state.remainingGuesses);
+			if(this.state.remainingGuesses < 2){
+				this.showFire();
+			}
 			if(res.playerId === this.playerId){
 				this.setGameState(res.gameState);
 			} else{
@@ -145,6 +148,10 @@ export default class Room extends React.Component {
 	    		'isDone': gameState.isDone
 			})		
 		}
+	}
+
+	showFire(){
+		document.getElementById("fire").style.display = "block";
 	}
 
 	runAnimation(choice){
