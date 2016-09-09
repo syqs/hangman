@@ -70,6 +70,21 @@ canvas {
   background-size:cover; 
   background-color: black;
 }
+#proModeKK{
+  background-color: #d7d802;
+  color: #232323;
+}
+.alphabet-guessed#proModeKK{
+  background-color: #e49709;
+  color: #232323;
+}
+
+.game-title#proModeKK{
+  background-color: #464540;
+}
+.navbar#proModeKK{
+  background-color: #464540;
+}
 .alphabets-inactive{
 	background: red
 }

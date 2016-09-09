@@ -13,6 +13,7 @@ export default class GameBoard extends React.Component {
 		super(props);
 		this.state = {
 		  buttontext: 'Pro Mode',
+		  before: 'nothing'
 		};
 		this.trackClicks = 0;
 	}
@@ -22,12 +23,23 @@ export default class GameBoard extends React.Component {
 		if (this.trackClicks %2 === 0){
 			this.props.serverAPI.onProGame("proOff");
 			this.setState({buttontext: 'Pro Mode'})
-			document.getElementsByClassName('back')[0].id = "snowy"
+			document.getElementsByClassName('back')[0].id = this.state.before;
+			document.getElementsByClassName('navbar')[0].id = "4"
+			document.getElementsByClassName('game-title')[0].id = "4"
+			for (var i = 0; i < document.getElementsByClassName('alphabet').length; i++) {
+				document.getElementsByClassName('alphabet')[i].id= "4"
+			}
 		}
 		else{
 			this.props.serverAPI.onProGame("proOn");
 			this.setState({buttontext: 'Normal Mode'})
+			this.state.before =document.getElementsByClassName('back')[0].id
 			document.getElementsByClassName('back')[0].id = "proMode"
+			document.getElementsByClassName('navbar')[0].id = "proMode"
+			document.getElementsByClassName('game-title')[0].id = "proMode"
+			for (var i = 0; i < document.getElementsByClassName('alphabet').length; i++) {
+				document.getElementsByClassName('alphabet')[i].id= "proModeKK"
+			}
 		}
 	}
 
