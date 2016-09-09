@@ -89,8 +89,9 @@ export default class Room extends React.Component {
 		});
 
 		this.serverAPI.onIncorrectGuess((res)=>{
-			console.log("Incorrect Guess", this.state.remainingGuesses);
-			if(this.state.remainingGuesses < 2){
+			console.log("Incorrect Guess", this.state.remainingGuesses, res);
+				console.log("koko")
+			if(this.state.remainingGuesses < 3){
 				this.showFire();
 			}
 			if(res.playerId === this.playerId){
@@ -154,6 +155,9 @@ export default class Room extends React.Component {
 	}
 
 	runAnimation(choice){
+		setTimeout(function () {
+			document.getElementById("fire").style.display = "none";
+		},4000)
 		if(choice !== "win"){
 			var choice = Math.ceil((Math.random() * 2))
 		}
@@ -190,6 +194,7 @@ export default class Room extends React.Component {
 				document.getElementById("unicorn").style.display = "none";
 				document.getElementById("gallowMan").style.display = "block";
 				document.getElementById("outcome").style.display = "none";
+
 			},3000)
 			document.getElementById("unicorn").style.display = "block";
 			document.getElementById("gallowMan").style.display = "none";
