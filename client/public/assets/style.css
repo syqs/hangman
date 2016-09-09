@@ -84,14 +84,10 @@ div {
 
 .guessedLetters, .remainingGuess, .navcon {
     text-align: left;
-/*    text-align: center;
-    padding: 10px; 
-    height: 20px; 
-*/
 }
 
 .outcome-outline{
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
@@ -121,7 +117,7 @@ div {
 }
 
 .gallows{
-    height: 500px;
+    height: 700px;
 }
 
 #gallowStructure {
@@ -167,7 +163,7 @@ h1.game-title {
 }
 
 #player-col, #board-col {
-    padding-top: 25px;
+    padding-top: 50px;
 }
 
 /*the win or lose msg*/
@@ -213,6 +209,29 @@ h1.game-title {
     }
 }
 
+@-webkit-keyframes moveSeahorse
+{
+    from {
+        left: 10%;
+        bottom:0%;        
+    }
+    to {
+        left: 150%;
+        bottom:70%;
+    }
+}
+@keyframes moveSeahorse
+{
+    from {
+        left: 10%;
+        bottom:0%;
+    }
+    to {
+        left: 150%;
+        bottom:70%;
+    }
+}
+
 #rope2 {
     display:none;
 }
@@ -221,14 +240,20 @@ h1.game-title {
 }
 
 img#train{
-    position: fixed;
+    position: absolute;
     animation: moveTrain 2s;
     top:260px;
     display: none;
 }
+img#seahorse{
+    position: absolute;
+    animation: moveSeahorse 5s;
+    bottom:0px;
+    display: none;
+}
 
 #unicorn { 
-    position: fixed; 
+    position: absolute; 
     right: -65px; 
     bottom: -50px;
     -webkit-animation: move 5s;
@@ -236,6 +261,9 @@ img#train{
 }
 
 img#unicorn {
+   display: none;
+}
+img#seahorse {
    display: none;
 }
 
@@ -252,9 +280,18 @@ h1, h2, h3 {
     width: 260px;
     left: -118px;
 }
-
 .proMode {
     position: absolute;
     left: -218px;
     top: 17px;
+#fire {
+    position:fixed;
+    bottom: 0;
+    display: none;
+}
+#bloodfountain {
+    position:fixed;
+    top: 33%;
+    right:9%;
+    display: none;
 }

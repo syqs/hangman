@@ -24,6 +24,7 @@ export default class Room extends React.Component {
 			coolDown:0,
 			myRoom: "",
 			hintPic:'',
+			leCounter: 0
 		};
 		
 		this.playerId = ""
@@ -36,12 +37,9 @@ export default class Room extends React.Component {
 		this.serverAPI = new ServerAPI(4000);
 		this.serverAPI.connect();	
 		this.serverAPI.onEnterRoom((res)=>{
-			console.log("Enter Room", res);
 			this.playerId = res.playerId;
 			var playerList = res.players.slice();
-			//playerList.push(res.playerId);
-			console.log(document.cookie, "cookie!!");
-			document.cookie = "roomId=" + res.roomId; 
+			document.cookie = "roomId=" + res.roomId; // to get the cookie for players to join same game 
 			this.setState({
 				'players' : playerList,
 		        'word':  res.gameState.word,
@@ -55,24 +53,22 @@ export default class Room extends React.Component {
 		// get hing picture url
 		this.serverAPI.getImageUrl((hintPic)=>{
 			this.setState({
-				hintPic: hintPic.url
+				hintPic: hintPic.url  
 			})
 		})
 
 		// Update players
 		this.serverAPI.onPlayerEnterRoom((res)=>{
-			console.log("Player enter room", res, this.state);
 			var playerList = this.state.players;
-			console.log("playerlist: ", playerList)
 			playerList.push(res.playerId);
 			this.setState({
 				players: playerList,
 				myRoom: res.roomId
 			})
 		});
-
+		
+		// when player leaves room (for later when more then 1 person per room)
 		this.serverAPI.onPlayerLeaveRoom((res)=>{
-			console.log("Player Leave room", res);
 			var playerList = this.state.players;
 			if(playerList.indexOf(res.playerId)>0){
 				playerList.splice(playerList.indexOf(res.playerId), 1);
@@ -84,12 +80,13 @@ export default class Room extends React.Component {
 
 		// Game related events
 		this.serverAPI.onStartGame( (res) => {
-			console.log("Start game", res.gameState);
 			this.setGameState(res.gameState);
 		});
 
 		this.serverAPI.onIncorrectGuess((res)=>{
-			console.log("Incorrect Guess", res);
+			if(this.state.remainingGuesses < 3){
+				this.showFire();
+			}
 			if(res.playerId === this.playerId){
 				this.setGameState(res.gameState);
 			} else{
@@ -98,16 +95,14 @@ export default class Room extends React.Component {
 		})
 
 		this.serverAPI.onCorrectGuess((res)=>{
-			console.log("Correct Guess", res, res.playerId, this.playerId);
 			if(res.playerId === this.playerId){
 				this.setGameState(res.gameState, res.coolDown);
 			} else{
 				this.setGameState(res.gameState );
 			}
 		})
-
+		
 		this.serverAPI.onWin((res)=>{
-			console.log("win!", res)
 			this.outcome.win = true;
 			this.outcome.player = res.playerId;
 			this.runAnimation("win");
@@ -115,19 +110,18 @@ export default class Room extends React.Component {
 		})
 
 		this.serverAPI.onLose((res)=>{
-			console.log("lose!", res)
 			this.outcome.win = false;
 			this.outcome.player = res.playerId;
-			this.runAnimation("head");
+			this.runAnimation(0);
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 
 		})
 	}
 
+	// Fucntiong to set game state (update every guess etc...)
 	setGameState(gameState, coolDown){
-		// console.log("setting game state: ", gameState, coolDown)
+
 		if(coolDown > 0){
-			console.log("updating with coolDown", gameState)
 			this.setState({
 		        'word':  gameState.word, // keep state immutable
 	    		'guessedLetters': gameState.guessedLetters,
@@ -136,7 +130,6 @@ export default class Room extends React.Component {
 	    		'coolDown': coolDown
 			})
 		} else {
-			console.log("updating without coolDown", gameState)
 			this.setState({
 		        'word':  gameState.word, // keep state immutable
 	    		'guessedLetters': gameState.guessedLetters,
@@ -146,52 +139,91 @@ export default class Room extends React.Component {
 		}
 	}
 
+	//show fire if low on guesses
+	showFire(){
+		document.getElementById("fire").style.display = "block";
+	}
+
+	//on lose/win Animations
 	runAnimation(choice){
-		if(choice !== "win"){
-			var choice = Math.ceil((Math.random() * 2))
-		}
-		if(choice === 1){
+		if(this.state.background === "sea" && choice !== "win"){
+			document.getElementById("gallowMan").style.display = "block";
 			setTimeout(function(){
-				document.getElementById("train").style.display = "none";
-				document.getElementById("gallowMan").style.display = "block";
-			},2000)
-			document.getElementById("outcome").style.display = "block";
-			document.getElementById("train").style.display = "block";
+					document.getElementById("seahorse").style.display = "none";
+					document.getElementById("gallowMan").style.display = "block";
+				},3000)
+				document.getElementById("outcome").style.display = "block";
+				document.getElementById("seahorse").style.display = "block";
+				setTimeout(function () {
+					document.getElementById("bloodfountain").style.display = "block";	
+					document.getElementById("rope").style.display = "none";
+					document.getElementById("nuse").style.display = "none";	
+
+				},1800)
+				setTimeout(function () {
+					document.getElementById("nuse").style.display = "block";
+					document.getElementById("bloodfountain").style.display = "none";
+					document.getElementById("rope").style.display = "block";
+					document.getElementById("outcome").style.display = "none";
+					document.getElementById("fire").style.display = "none";
+				},3000)
+		}else{
+
 			setTimeout(function () {
-				document.getElementById("gallowMan").style.display = "none";	
-				document.getElementById("rope").style.display = "none";
-				document.getElementById("nuse").style.display = "none";
-				document.getElementById("rope2").style.display = "block";	
-			},600)
-			setTimeout(function () {
-				document.getElementById("nuse").style.display = "block";
-				document.getElementById("rope2").style.display = "none";
-				document.getElementById("rope").style.display = "block";
-				document.getElementById("outcome").style.display = "none";
-			},2000)
-		}else if(choice === 2){
-			setTimeout(function(){
-				document.getElementById("head").style.display = "none";
-				document.getElementById("noggin").style.display = "block";
-				document.getElementById("outcome").style.display = "none";
-			},2000)
-			document.getElementById("head").style.display = "block";
-			document.getElementById("noggin").style.display = "none";
-			document.getElementById("outcome").style.display = "block";
-		}else if(choice === "win"){
-			setTimeout(function(){
-				document.getElementById("unicorn").style.display = "none";
-				document.getElementById("gallowMan").style.display = "block";
-				document.getElementById("outcome").style.display = "none";
-			},3000)
-			document.getElementById("unicorn").style.display = "block";
-			document.getElementById("gallowMan").style.display = "none";
-			document.getElementById("outcome").style.display = "block";
+				document.getElementById("fire").style.display = "none";
+			},4000)
+
+			if(choice !== "win"){
+				if(this.state.leCounter >= 2){
+					this.state.leCounter = 0;
+				}
+				choice = this.state.leCounter + 1;
+				this.state.leCounter = choice;
+			}
+			if(choice === 1){
+				setTimeout(function(){
+					document.getElementById("train").style.display = "none";
+					document.getElementById("gallowMan").style.display = "block";
+				},2000)
+				document.getElementById("outcome").style.display = "block";
+				document.getElementById("train").style.display = "block";
+				setTimeout(function () {
+					document.getElementById("gallowMan").style.display = "none";	
+					document.getElementById("rope").style.display = "none";
+					document.getElementById("nuse").style.display = "none";
+					document.getElementById("rope2").style.display = "block";	
+				},600)
+				setTimeout(function () {
+					document.getElementById("nuse").style.display = "block";
+					document.getElementById("rope2").style.display = "none";
+					document.getElementById("rope").style.display = "block";
+					document.getElementById("outcome").style.display = "none";
+				},2000)
+			}else if(choice === 2){
+				setTimeout(function(){
+					document.getElementById("head").style.display = "none";
+					document.getElementById("noggin").style.display = "block";
+					document.getElementById("outcome").style.display = "none";
+				},2000)
+				document.getElementById("head").style.display = "block";
+				document.getElementById("noggin").style.display = "none";
+				document.getElementById("outcome").style.display = "block";
+			}else if(choice === "win"){
+				setTimeout(function(){
+					document.getElementById("unicorn").style.display = "none";
+					document.getElementById("gallowMan").style.display = "block";
+					document.getElementById("outcome").style.display = "none";
+
+				},3000)
+				document.getElementById("unicorn").style.display = "block";
+				document.getElementById("gallowMan").style.display = "none";
+				document.getElementById("outcome").style.display = "block";
+			}
 		}
 	}
 
+	// Functiong for when game is won or lost
 	setEndGameState(gameState, timeUntilNextGame){
-		// console.log("setting game state END: ", gameState, timeUntilNextGame)
 			this.setState({
 		        'word':  gameState.word, // keep state immutable
 	    		'guessedLetters': gameState.guessedLetters,
@@ -202,7 +234,6 @@ export default class Room extends React.Component {
 	}
 
 	render() {
-		console.log("RENDER ROOM", this.state)
 		var guessedLettersUpper = this.state.guessedLetters.map((letter)=>{return letter.toUpperCase()});
 		return(
 			<div className="room">
@@ -219,7 +250,6 @@ export default class Room extends React.Component {
 				  <select name="select" className="dropMenu"
 				     onChange = {(e) => {
 				    	this.state.background = e.target.value;
-				    	console.log("back", this.state.background)
 				    	this.forceUpdate()
 				    }}>
 					<option value="snowy" >Snowy winter</option> 

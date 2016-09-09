@@ -22,7 +22,8 @@ export default class Gallows extends React.Component {
 		                 repeatCount="indefinite"/>
 
 						</line>
-						<circle id="nuse" cx="100" cy="175" r="16" />
+						<circle id="nuse" cx="100" cy="175" r="16" fill-opacity="1"/>
+					   	
 					</g>
 					<g id="gallowMan">
 						<circle id="noggin" 
@@ -61,6 +62,13 @@ export default class Gallows extends React.Component {
 							x1="100" y1="285" x2="145" y2="350" />
 					</g>
 				</svg>
+				
+				<div id="fire">
+				<img src="assets/fire.gif"/>
+				</div>
+				<div id="bloodfountain">
+				<img src="assets/bloodfountain.gif"/>
+				</div>
 			</div>
 		)
 	}

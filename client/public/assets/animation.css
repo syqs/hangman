@@ -21,45 +21,45 @@
 }*/
 * {margin: 0; padding: 0;}
 .container{
-  position: fixed;
+  position: absolute;
   z-index: 12;
 }
 .navbar navbar-default navbar-static-top {
-  position: fixed;
+  position: absolute;
   z-index: 12;
 }
 .room{
-  position: fixed;
+  position: absolute;
 }
 canvas {
   display: block;
 }
-.canvas{
-  position: fixed;
+.back{
+  position: absolute;
   z-index: 10; 
 }
 .dropMenu{
-  position: fixed;
+  position: absolute;
   z-index: 100; 
   top: 15px;
   right: 20px;
 }
 #snowy {
-  position: fixed;
+  position: absolute;
   z-index: 0;
   background-image: url("http://dbclipart.com/wp-content/uploads/2016/03/Mountain-clip-art-free-download-free-clipart-images-2-2.png");
   background-position: center;
   background-size:cover;
 }
 #desert {
-  position: fixed;
+  position: absolute;
   z-index: 0;
-  background-image: url("http://eskipaper.com/images/savannah-background-1.jpg");
+  background-image: url("https://slack-imgs.com/?c=1&url=http%3A%2F%2Fwww.pptgrounds.com%2Fwp-content%2Fuploads%2F2013%2F12%2FThe-Mexican-Desert-Drive-Freely-Backgrounds.jpg");
   background-position: center;
   background-size:cover;
 }
 #sea {
-  position: fixed;
+  position: absolute;
   z-index: 0;
   background-image: url("http://www.publicdomainpictures.net/pictures/30000/velka/underwater-treasures.jpg");
   background-position: center;

@@ -17,7 +17,6 @@ export default class GameBoard extends React.Component {
 		this.trackClicks = 0;
 	}
 
-
 	_ButtonClick() {
 		this.trackClicks += 1;
 		if (this.trackClicks %2 === 0){
