@@ -34,10 +34,7 @@
 canvas {
   display: block;
 }
-.back{
-  position: absolute;
-  z-index: 10; 
-}
+
 .dropMenu{
   position: absolute;
   z-index: 100; 
