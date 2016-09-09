@@ -66,6 +66,9 @@ export default class Gallows extends React.Component {
 				<div id="fire">
 				<img src="assets/fire.gif"/>
 				</div>
+				<div id="bloodfountain">
+				<img src="assets/bloodfountain.gif"/>
+				</div>
 			</div>
 		)
 	}
