@@ -13,7 +13,6 @@ export default class GameBoard extends React.Component {
 		super(props);
 	}
 
-
 	_ButtonClick() {
 		this.props.serverAPI.onProGame();
 	}

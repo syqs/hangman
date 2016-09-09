@@ -23,7 +23,8 @@ export default class Room extends React.Component {
 			background: "snowy",
 			coolDown:0,
 			myRoom: "",
-			hintPic:''
+			hintPic:'',
+			leCounter: 0
 		};
 		
 		this.playerId = ""
@@ -111,7 +112,7 @@ export default class Room extends React.Component {
 		this.serverAPI.onLose((res)=>{
 			this.outcome.win = false;
 			this.outcome.player = res.playerId;
-			this.runAnimation("head");
+			this.runAnimation(0);
 			this.setEndGameState(res.gameState, res.timeUntilNextGame)
 
 		})
@@ -145,7 +146,7 @@ export default class Room extends React.Component {
 
 	//on lose/win Animations
 	runAnimation(choice){
-		if(this.state.background === "sea"){
+		if(this.state.background === "sea" && choice !== "win"){
 			document.getElementById("gallowMan").style.display = "block";
 			setTimeout(function(){
 					document.getElementById("seahorse").style.display = "none";
@@ -164,6 +165,7 @@ export default class Room extends React.Component {
 					document.getElementById("bloodfountain").style.display = "none";
 					document.getElementById("rope").style.display = "block";
 					document.getElementById("outcome").style.display = "none";
+					document.getElementById("fire").style.display = "none";
 				},3000)
 		}else{
 
@@ -172,7 +174,11 @@ export default class Room extends React.Component {
 			},4000)
 
 			if(choice !== "win"){
-				var choice = Math.ceil((Math.random() * 2))
+				if(this.state.leCounter >= 2){
+					this.state.leCounter = 0;
+				}
+				choice = this.state.leCounter + 1;
+				this.state.leCounter = choice;
 			}
 			if(choice === 1){
 				setTimeout(function(){
