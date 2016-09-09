@@ -62,6 +62,14 @@ canvas {
   background-position: center;
   background-size:cover; 
 }
+#proMode {
+  position: absolute;
+  z-index: 0;
+  background-image: none;
+  background-position: center;
+  background-size:cover; 
+  background-color: black;
+}
 .alphabets-inactive{
 	background: red
 }

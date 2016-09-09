@@ -22,10 +22,12 @@ export default class GameBoard extends React.Component {
 		if (this.trackClicks %2 === 0){
 			this.props.serverAPI.onProGame("proOff");
 			this.setState({buttontext: 'Pro Mode'})
+			document.getElementsByClassName('back')[0].id = "snowy"
 		}
 		else{
 			this.props.serverAPI.onProGame("proOn");
 			this.setState({buttontext: 'Normal Mode'})
+			document.getElementsByClassName('back')[0].id = "proMode"
 		}
 	}
 
