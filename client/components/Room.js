@@ -23,7 +23,8 @@ export default class Room extends React.Component {
 			background: "snowy",
 			coolDown:0,
 			myRoom: "",
-			hintPic:''
+			hintPic:'',
+			leCounter: 0
 		};
 		
 		this.playerId = ""
@@ -145,7 +146,6 @@ export default class Room extends React.Component {
 
 	//on lose/win Animations
 	runAnimation(choice){
-		var theState = 0;
 		if(this.state.background === "sea" && choice !== "win"){
 			document.getElementById("gallowMan").style.display = "block";
 			setTimeout(function(){
@@ -165,6 +165,7 @@ export default class Room extends React.Component {
 					document.getElementById("bloodfountain").style.display = "none";
 					document.getElementById("rope").style.display = "block";
 					document.getElementById("outcome").style.display = "none";
+					document.getElementById("fire").style.display = "none";
 				},3000)
 		}else{
 
@@ -173,8 +174,11 @@ export default class Room extends React.Component {
 			},4000)
 
 			if(choice !== "win"){
-				choice = theState + 1;
-				theState = choice;
+				if(this.state.leCounter >= 2){
+					this.state.leCounter = 0;
+				}
+				choice = this.state.leCounter + 1;
+				this.state.leCounter = choice;
 			}
 			if(choice === 1){
 				setTimeout(function(){
