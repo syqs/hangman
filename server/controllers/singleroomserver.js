@@ -29,7 +29,6 @@ module.exports = function (io, wordGenerator, restartDelay) {
   // Create RoomController to manage Room and Game
   var controller = [];
     SATWords.getWords(function(words){
-      // console.log(words);
       ProWords = words.slice();
     })
   if (wordGenerator === undefined) {
@@ -57,9 +56,7 @@ module.exports = function (io, wordGenerator, restartDelay) {
       cookieRoomId = socket.handshake.headers.cookie.substr(socket.handshake.headers.cookie.indexOf("roomId")+7);
   var savedIndex = -1;
   for(var index=0; index<controller.length; index++){
-    console.log(controller[index].getRoom().getId(), "and ", cookieRoomId)
     if(controller[index].getRoom().getId() === cookieRoomId) {
-      console.log("found room!", index)
       savedIndex = index;
     } 
   }
@@ -73,8 +70,8 @@ module.exports = function (io, wordGenerator, restartDelay) {
   console.log("new room!");
   // Return our connection handler
   }
+  console.log("There are ", controller.length ," rooms active on the server")
   var player = Player.create(socket);
-  console.log("index before controller,", savedIndex)
   // Server has only one room so add all Players
   controller[savedIndex].join(player);
   };
