@@ -10,6 +10,8 @@
 var Player = require('../models/player.js');
 var RoomController = require('./roomcontroller.js');
 var randomWords = require('random-words');
+var SATWords = require('sat-words')
+var ProWords =[];
 // Simple server for socket.io on 'connection' events
 // Server will:
 // 1.) Create a new RoomController
@@ -26,6 +28,10 @@ var randomWords = require('random-words');
 module.exports = function (io, wordGenerator, restartDelay) {
   // Create RoomController to manage Room and Game
   var controller = [];
+    SATWords.getWords(function(words){
+      // console.log(words);
+      ProWords = words.slice();
+    })
   if (wordGenerator === undefined) {
   // Configure RoomController to use a random word for each new Game
     wordGenerator = function () {
@@ -38,7 +44,14 @@ module.exports = function (io, wordGenerator, restartDelay) {
   }
   // Configure controller with above options
 
-  return function onConnectionHandler (socket) {
+  return function onConnectionHandler (socket, word) {
+    socket.on('proGame', function(){
+      console.log('PRO GAME')
+      var randomIndex = Math.floor(Math.random() * (5000 - 0 + 1)) + 0;
+      console.log('randomIndex: ', randomIndex)
+      console.log('ProWords[randomIndex]: ', ProWords[randomIndex])
+      onConnectionHandler (socket, ProWords[randomIndex]);
+    });
     var cookieRoomId = 'nothing';
     if (socket.handshake.headers.cookie)
       cookieRoomId = socket.handshake.headers.cookie.substr(socket.handshake.headers.cookie.indexOf("roomId")+7);
@@ -55,7 +68,7 @@ module.exports = function (io, wordGenerator, restartDelay) {
   controller.push(RoomController.create(io));
   controller[controller.length-1].setWordGenerator(wordGenerator);
   controller[controller.length-1].setRestartDelay(restartDelay);
-  controller[controller.length-1].newGame();
+  controller[controller.length-1].newGame(word);
   savedIndex = controller.length-1;
   console.log("new room!");
   // Return our connection handler

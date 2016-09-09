@@ -13,6 +13,11 @@ export default class GameBoard extends React.Component {
 		super(props);
 	}
 
+
+	_ButtonClick() {
+		this.props.serverAPI.onProGame();
+	}
+
 	render() {
 		var guessedLettersUpper = this.props.guessedLetters.map((letter)=>{return letter.toUpperCase()});
 		return(
@@ -29,6 +34,7 @@ export default class GameBoard extends React.Component {
 						<div id="guessed-row">
 							<GuessedLetters guessedLetters={guessedLettersUpper} />
 							<RemainingGuess remainingGuesses={this.props.remainingGuesses} />
+							<button className="btn btn-lg btn-danger" onClick={this._ButtonClick.bind(this)}> Pro Mode </button>
 						</div>
 						<div id="theword-row">
 							<Word word={this.props.word} />

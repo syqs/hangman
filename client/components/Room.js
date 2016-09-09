@@ -54,7 +54,6 @@ export default class Room extends React.Component {
 
 
 		this.serverAPI.getImageUrl((hintPic)=>{
-			console.log("hintPic url", hintPic.url);
 			this.setState({
 				hintPic: hintPic.url
 			})
