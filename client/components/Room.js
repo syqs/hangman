@@ -184,6 +184,7 @@ export default class Room extends React.Component {
 				setTimeout(function(){
 					document.getElementById("train").style.display = "none";
 					document.getElementById("gallowMan").style.display = "block";
+					document.getElementById("gallowMan").style.display = "block";
 				},2000)
 				document.getElementById("outcome").style.display = "block";
 				document.getElementById("train").style.display = "block";
