@@ -14,7 +14,8 @@ export default class Alphabets extends React.Component {
 	componentDidMount(){
 		document.addEventListener('keyup', (e) => {
 		  console.log("You pressed", keycode(e))
-		  this.props.serverAPI.makeGuess(keycode(e));
+		  if(this.alphabets.indexOf(keycode(e).toUpperCase()) !== -1)
+		  	this.props.serverAPI.makeGuess(keycode(e));
 		})
 
 	}
