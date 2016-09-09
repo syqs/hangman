@@ -50,7 +50,7 @@ export default class Room extends React.Component {
 			});
 		})
 
-		// picutre hit incase users choose they need help
+		// get hing picture url
 		this.serverAPI.getImageUrl((hintPic)=>{
 			this.setState({
 				hintPic: hintPic.url  
