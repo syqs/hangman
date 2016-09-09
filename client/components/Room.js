@@ -250,7 +250,7 @@ export default class Room extends React.Component {
 				    <h1 className="game-title">HANGMAN 2000</h1>
 				  <select name="select" className="dropMenu"
 				     onChange = {(e) => {
-				     	if(document.getElementsByClassName('back')[0].id !=="proMode"){
+				     	if(document.getElementsByClassName('back')[0].id =="proMode"){
 					    	this.state.background = e.target.value;
 					    	this.forceUpdate()
 				    	}
