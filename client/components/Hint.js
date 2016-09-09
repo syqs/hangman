@@ -15,7 +15,6 @@ export default class Hint extends React.Component {
 
 	_onButtonClick() {
 		this.trackClicks += 1;
-		console.log("this.trackClicks: ",this.trackClicks)
 		if (this.trackClicks %2 === 0){
 			this.setState({
 			  showComponent: false,
