@@ -28,7 +28,7 @@ export default class Themes extends React.Component {
 					var W = window.innerWidth;
 					var H = window.innerHeight;
 					canvas.width = W;
-					canvas.height = H-50;
+					canvas.height = H+document.getElementsByClassName("game-title")[0].clientHeight;
 					
 					//snowflake this.state.anamation.snow
 					
@@ -55,7 +55,7 @@ export default class Themes extends React.Component {
 						W = window.innerWidth;
 						H = window.innerHeight;
 						canvas.width = W;
-						canvas.height = H-50;	
+						canvas.height = H+document.getElementsByClassName("game-title")[0].clientHeight;	
 						// craeting snow/bubbles
 						ctx.beginPath(); 
 						if(that.state.background == "snowy"){
