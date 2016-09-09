@@ -10,31 +10,15 @@ export default class Themes extends React.Component {
 			anamation: {
 				bubble: [],
 				snow: [],
+				tumbleweeds : [],
 			},
 		}
 	}
 	componentWillReceiveProps(){
 		this.setState({background: document.getElementsByClassName("dropMenu")[0].value})
-		// this.state.background= document.getElementsByClassName("dropMenu")[0].value;
 	}
 	componentDidUpdate() {
 		console.log('state in theme, ', this.state);
-		// if (this.state.background === "snowy"){
-		//  	this.state.snowInt= Math.round(Math.random()*50)+100
-		//  	this.state.bubbleInt= 0;
-		//  	console.log("flakes,", this.state.snowInt)
-		// }
-		// if (this.state.background !== "snowy"){
-		//  	this.state.snowInt= 0
-		// }
-		// if(this.state.background === "sea"){
-		// 	this.state.bubbleInt= 30;
-		// 	console.log("Bubble,", this.state.bubbleInt)
-		// }
-		// if(this.state.background !== "sea"){
-		// 	this.state.bubbleInt= 0;
-		// }
-
 	}
 	componentDidMount(){
 		console.log("state before in Themes", this.state)
@@ -50,7 +34,7 @@ export default class Themes extends React.Component {
 					var W = window.innerWidth;
 					var H = window.innerHeight;
 					canvas.width = W;
-					canvas.height = H;
+					canvas.height = H-50;
 					
 					//snowflake this.state.anamation.snow
 					
@@ -74,26 +58,28 @@ export default class Themes extends React.Component {
 					//Lets draw the flakes
 					function draw()	{
 						ctx.clearRect(0, 0, W, H);
-						
-							
-							// 
-							ctx.beginPath();
-							if(that.state.background == "snowy"){
-								ctx.fillStyle = "rgba(255, 255, 255, .9)";
-								for(var i = 0; i < 500; i++)	{
-									var p = that.state.anamation.snow[i];
-									ctx.moveTo(p.x, p.y);
-									ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
-								}
+						W = window.innerWidth;
+						H = window.innerHeight;
+						canvas.width = W;
+						canvas.height = H-50;	
+						// 
+						ctx.beginPath();
+						if(that.state.background == "snowy"){
+							ctx.fillStyle = "rgba(255, 255, 255, .9)";
+							for(var i = 0; i < 500; i++)	{
+								var p = that.state.anamation.snow[i];
+								ctx.moveTo(p.x, p.y);
+								ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
 							}
-							if(that.state.background == "sea"){
-								ctx.fillStyle = "rgba(200, 190, 255, .5)";
-								for(var i =0; i<  20; i++){
-									var p = that.state.anamation.bubble[i];
-									ctx.moveTo(p.x, p.y);
-									ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
-								}
-							}ctx.fill();
+						}
+						if(that.state.background == "sea"){
+							ctx.fillStyle = "rgba(200, 190, 255, .5)";
+							for(var i =0; i<  20; i++){
+								var p = that.state.anamation.bubble[i];
+								ctx.moveTo(p.x, p.y);
+								ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
+							}
+						}ctx.fill();
 						
 						update();
 					}
