@@ -23,7 +23,7 @@ export default class Room extends React.Component {
 			background: "snowy",
 			coolDown:0,
 			myRoom: "",
-			hintPic:''
+			hintPic:'',
 		};
 		
 		this.playerId = ""
@@ -52,7 +52,7 @@ export default class Room extends React.Component {
 			});
 		})
 
-
+		// get hing picture url
 		this.serverAPI.getImageUrl((hintPic)=>{
 			this.setState({
 				hintPic: hintPic.url

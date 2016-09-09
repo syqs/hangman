@@ -23,7 +23,6 @@ RoomController.create = function (io) {
       var word = solution !== undefined ? solution : wordGenerator();
       Bing.getImage(word, function(url){
         io.in(room.getId()).emit('getImageUrl', { url: url });
-        console.log('url: ',url)
       });
       room.newGame(word);
     },

@@ -252,3 +252,9 @@ h1, h2, h3 {
     width: 260px;
     left: -118px;
 }
+
+.proMode {
+    position: absolute;
+    left: -218px;
+    top: 17px;
+}

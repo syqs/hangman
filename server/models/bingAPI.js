@@ -12,7 +12,6 @@ BingImg.getImage = function (solution, cb) {
 	  headers: {'Ocp-Apim-Subscription-Key': '2f563a1a6c854a808046ae268ab97ddc',
 	  			'Content-Type': "multipart/form-data"}
 	};
-	console.log('about to call http')
 	var req = https.request(options, (res) => {
 	  // console.log('statusCode:', res.statusCode);
 	  // console.log('headers:', res.headers);

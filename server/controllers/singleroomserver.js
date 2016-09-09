@@ -45,14 +45,9 @@ module.exports = function (io, wordGenerator, restartDelay) {
   // Configure controller with above options
 
   return function onConnectionHandler (socket, word) {
-    socket.on('proGame', function(){
-      console.log('PRO GAME')
-      var randomIndex = Math.floor(Math.random() * (5000 - 0 + 1)) + 0;
-      console.log('randomIndex: ', randomIndex)
-      console.log('ProWords[randomIndex]: ', ProWords[randomIndex])
-      onConnectionHandler (socket, ProWords[randomIndex]);
-    });
+
     var cookieRoomId = 'nothing';
+    var player = Player.create(socket);
     if (socket.handshake.headers.cookie)
       cookieRoomId = socket.handshake.headers.cookie.substr(socket.handshake.headers.cookie.indexOf("roomId")+7);
   var savedIndex = -1;
@@ -63,6 +58,21 @@ module.exports = function (io, wordGenerator, restartDelay) {
       savedIndex = index;
     } 
   }
+   socket.on('proGame', function(data){
+      if (data.mode === 'proOn'){
+        console.log('PRO GAME')
+        var randomIndex = Math.floor(Math.random() * (5000 - 0 + 1)) + 0;
+        console.log('randomIndex: ', randomIndex)
+        console.log('ProWords[randomIndex]: ', ProWords[randomIndex])
+        controller[savedIndex].newGame(ProWords[randomIndex]);
+        controller[savedIndex].join(player);
+        // onConnectionHandler (socket, ProWords[randomIndex]);
+      } else{
+        console.log('NORMAL GAME')
+        controller[savedIndex].newGame(word);
+        controller[savedIndex].join(player);
+      }
+    });
   // Treat each new connection as a new Player
   if(savedIndex == -1){
   controller.push(RoomController.create(io));
@@ -73,8 +83,6 @@ module.exports = function (io, wordGenerator, restartDelay) {
   console.log("new room!");
   // Return our connection handler
   }
-  var player = Player.create(socket);
-  console.log("index before controller,", savedIndex)
   // Server has only one room so add all Players
   controller[savedIndex].join(player);
   };
