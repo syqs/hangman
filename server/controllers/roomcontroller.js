@@ -11,6 +11,7 @@ RoomController.create = function (io) {
   var restartDelay = 30000;
   var imageUrl = null;
 
+
   // wordGenerator is used to create new Games, should be set in setWordGenerator
   var wordGenerator = function () {
     return '';
@@ -18,7 +19,7 @@ RoomController.create = function (io) {
 
   // Setup Controller's Public API
   var controller = {
-    newGame: function (solution, cb) {
+    newGame: function (solution) {
       var word = solution !== undefined ? solution : wordGenerator();
       Bing.getImage(word, function(url){
         io.in(room.getId()).emit('getImageUrl', { url: url });

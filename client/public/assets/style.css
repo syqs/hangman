@@ -84,14 +84,10 @@ div {
 
 .guessedLetters, .remainingGuess, .navcon {
     text-align: left;
-/*    text-align: center;
-    padding: 10px; 
-    height: 20px; 
-*/
 }
 
 .outcome-outline{
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
@@ -167,7 +163,7 @@ h1.game-title {
 }
 
 #player-col, #board-col {
-    padding-top: 25px;
+    padding-top: 50px;
 }
 
 /*the win or lose msg*/
@@ -221,14 +217,14 @@ h1.game-title {
 }
 
 img#train{
-    position: fixed;
+    position: absolute;
     animation: moveTrain 2s;
     top:260px;
     display: none;
 }
 
 #unicorn { 
-    position: fixed; 
+    position: absolute; 
     right: -65px; 
     bottom: -50px;
     -webkit-animation: move 5s;

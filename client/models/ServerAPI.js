@@ -79,4 +79,9 @@ export default class ServerAPI {
     this.client.on('getImageUrl', callback);
   }
 
+  onProGame () {
+    console.log('onProGame')
+    this.client.emit('proGame', {mode: 'Pro'});
+  }
+
 }
