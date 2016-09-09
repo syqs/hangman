@@ -5,7 +5,12 @@ export default class ServerAPI {
   // creates a socket.io-client connection
   constructor(port) {
     this.port = port;
-    this.client = null;
+    this.client = 
+    {handshake :
+      {headers: 
+        {cookie :document.cookie}
+      }
+    }
   }
 
   disconnect() {
@@ -26,13 +31,11 @@ export default class ServerAPI {
 
   // Sends a letter to the server that represents a guess
   makeGuess(letter) {
-    // console.log("client make guess", letter)
     this.client.emit('guessLetter', { letter: letter })
   }
 
   // Sends a letter to the server that represents a guess
   playAgain() {
-    console.log("client play again")
     this.client.emit('playAgain')
   }
 
@@ -72,6 +75,11 @@ export default class ServerAPI {
 
   getImageUrl (callback) {
     this.client.on('getImageUrl', callback);
+  }
+
+  onProGame () {
+    console.log('onProGame')
+    this.client.emit('proGame', {mode: 'Pro'});
   }
 
 }
