@@ -146,7 +146,7 @@ export default class Room extends React.Component {
 	//on lose/win Animations
 	runAnimation(choice){
 		var theState = 0;
-		if(this.state.background === "sea"){
+		if(this.state.background === "sea" && choice !== "win"){
 			document.getElementById("gallowMan").style.display = "block";
 			setTimeout(function(){
 					document.getElementById("seahorse").style.display = "none";
