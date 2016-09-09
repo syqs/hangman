@@ -8,22 +8,16 @@ export default class Themes extends React.Component {
 		this.state = {
 			background: props.background,
 			anamation: {
-				bubble: [],
-				snow: [],
-				tumbleweeds : [],
+				bubble: [], // adds all the bubbles 
+				snow: [], // adds the snow
 			},
-		}
+		} 
 	}
 	componentWillReceiveProps(){
-		this.setState({background: document.getElementsByClassName("dropMenu")[0].value})
-	}
-	componentDidUpdate() {
-		console.log('state in theme, ', this.state);
+		this.setState({background: document.getElementsByClassName("dropMenu")[0].value}) //to update the background to know if snow/bubbles are needed
 	}
 	componentDidMount(){
-		console.log("state before in Themes", this.state)
-		var that = this;
-		console.log("loading snow first time!")
+		var that = this;// so can use this inside function 
 		function drawEffect(){
 					//canvas init
 					
@@ -62,10 +56,10 @@ export default class Themes extends React.Component {
 						H = window.innerHeight;
 						canvas.width = W;
 						canvas.height = H-50;	
-						// 
-						ctx.beginPath();
+						// craeting snow/bubbles
+						ctx.beginPath(); 
 						if(that.state.background == "snowy"){
-							ctx.fillStyle = "rgba(255, 255, 255, .9)";
+							ctx.fillStyle = "rgba(255, 255, 255, .9)"; //snow dematnions 
 							for(var i = 0; i < 500; i++)	{
 								var p = that.state.anamation.snow[i];
 								ctx.moveTo(p.x, p.y);
@@ -73,14 +67,14 @@ export default class Themes extends React.Component {
 							}
 						}
 						if(that.state.background == "sea"){
-							ctx.fillStyle = "rgba(200, 190, 255, .5)";
+							ctx.fillStyle = "rgba(200, 190, 255, .5)"; // bubbles dumantions 
 							for(var i =0; i<  20; i++){
 								var p = that.state.anamation.bubble[i];
 								ctx.moveTo(p.x, p.y);
 								ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
 							}
 						}ctx.fill();
-						
+						//class updade to help them move
 						update();
 					}
 					
@@ -155,13 +149,13 @@ export default class Themes extends React.Component {
 					//animation loop
 					setInterval(draw, 33)		
 				}
-			drawEffect();
+			drawEffect(); // calls function once ( drawEffect is kinda like and iffi)
 	}
 	render() {
 		return ( 
 		<div>
-			<canvas className="back" id={this.state.background}></canvas>
+			<canvas className="back" id={this.state.background}></canvas> 
 		</div>
-		)
+		)// canvas to draw on
 	}
 }

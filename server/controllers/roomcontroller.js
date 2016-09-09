@@ -6,7 +6,7 @@ var RoomController = {};
 
 RoomController.create = function (io) {
   var room = Room.create();
-  console.log("roomid", room.getId());
+  console.log("Creating new room with ID:", room.getId());
   var restartDelay = 30000;
   var imageUrl = null;
 
@@ -22,21 +22,27 @@ RoomController.create = function (io) {
       var word = solution !== undefined ? solution : wordGenerator();
       Bing.getImage(word, function(url){
         io.in(room.getId()).emit('getImageUrl', { url: url });
-        console.log('url: ',url)
+        console.log('url for bing Image: ',url)
       });
       room.newGame(word);
     },
+    //Generates new word
     setWordGenerator: function (fn) {
       wordGenerator = fn;
     },
+    //sets delay before game for anamations and loading time
     setRestartDelay: function (delay) {
       restartDelay = delay;
     },
+    // returns the room at current state
     getRoom: function () {
       return room;
     },
+    // allows user to join, 
+    // TODO:
+    // allow more then 1 user to join a game
     join: function (player) {
-      room.join(player);
+      room.join(player); //adds current player to room
       var socket = player.getSocket();
       socket.join(room.getId());
       // Configure Events
@@ -44,7 +50,7 @@ RoomController.create = function (io) {
           // Leave our Room model
           room.leave(socket.id);
           // Broadcast a playerLeaveRoom event to other sockets
-          console.log("player left:", room.getId(), "player id:",player.getId())
+          console.log("player left:", room.getId()) //tells player left
           io.in(room.getId()).emit('playerLeaveRoom', { playerId: player.getId(), roomId:room.getId()});
       });
 
@@ -84,7 +90,7 @@ RoomController.create = function (io) {
       gameState: room.getGame().getState(),
     });
   });
-
+  //starts the game and emits it to API
   var startGameAfterRestartDelay = function () {
     setTimeout(function () {
       controller.newGame();
@@ -93,7 +99,7 @@ RoomController.create = function (io) {
       });
     }, restartDelay);
   }
-
+  // emits win and resets all the game states
   room.onWin(function (player) {
     io.in(room.getId()).emit('win', {
       playerId: player.getId(),
@@ -102,7 +108,7 @@ RoomController.create = function (io) {
     });
     startGameAfterRestartDelay();
   });
-
+  // emit lose and resets all the game states
   room.onLose(function (player) {
     io.in(room.getId()).emit('loss', {
       playerId: player.getId(),

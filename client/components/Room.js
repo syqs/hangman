@@ -36,12 +36,9 @@ export default class Room extends React.Component {
 		this.serverAPI = new ServerAPI(4000);
 		this.serverAPI.connect();	
 		this.serverAPI.onEnterRoom((res)=>{
-			console.log("Enter Room", res);
 			this.playerId = res.playerId;
 			var playerList = res.players.slice();
-			//playerList.push(res.playerId);
-			console.log(document.cookie, "cookie!!");
-			document.cookie = "roomId=" + res.roomId; 
+			document.cookie = "roomId=" + res.roomId; // to get the cookie for players to join same game 
 			this.setState({
 				'players' : playerList,
 		        'word':  res.gameState.word,
@@ -52,27 +49,25 @@ export default class Room extends React.Component {
 			});
 		})
 
-
+		// picutre hit incase users choose they need help
 		this.serverAPI.getImageUrl((hintPic)=>{
 			this.setState({
-				hintPic: hintPic.url
+				hintPic: hintPic.url  
 			})
 		})
 
 		// Update players
 		this.serverAPI.onPlayerEnterRoom((res)=>{
-			console.log("Player enter room", res, this.state);
 			var playerList = this.state.players;
-			console.log("playerlist: ", playerList)
 			playerList.push(res.playerId);
 			this.setState({
 				players: playerList,
 				myRoom: res.roomId
 			})
 		});
-
+		
+		// when player leaves room (for later when more then 1 person per room)
 		this.serverAPI.onPlayerLeaveRoom((res)=>{
-			console.log("Player Leave room", res);
 			var playerList = this.state.players;
 			if(playerList.indexOf(res.playerId)>0){
 				playerList.splice(playerList.indexOf(res.playerId), 1);
@@ -84,13 +79,10 @@ export default class Room extends React.Component {
 
 		// Game related events
 		this.serverAPI.onStartGame( (res) => {
-			console.log("Start game", res.gameState);
 			this.setGameState(res.gameState);
 		});
 
 		this.serverAPI.onIncorrectGuess((res)=>{
-			console.log("Incorrect Guess", this.state.remainingGuesses, res);
-				console.log("koko")
 			if(this.state.remainingGuesses < 3){
 				this.showFire();
 			}
@@ -102,16 +94,14 @@ export default class Room extends React.Component {
 		})
 
 		this.serverAPI.onCorrectGuess((res)=>{
-			console.log("Correct Guess", res, res.playerId, this.playerId);
 			if(res.playerId === this.playerId){
 				this.setGameState(res.gameState, res.coolDown);
 			} else{
 				this.setGameState(res.gameState );
 			}
 		})
-
+		
 		this.serverAPI.onWin((res)=>{
-			console.log("win!", res)
 			this.outcome.win = true;
 			this.outcome.player = res.playerId;
 			this.runAnimation("win");
@@ -119,7 +109,6 @@ export default class Room extends React.Component {
 		})
 
 		this.serverAPI.onLose((res)=>{
-			console.log("lose!", res)
 			this.outcome.win = false;
 			this.outcome.player = res.playerId;
 			this.runAnimation("head");
@@ -128,10 +117,10 @@ export default class Room extends React.Component {
 		})
 	}
 
+	// Fucntiong to set game state (update every guess etc...)
 	setGameState(gameState, coolDown){
-		// console.log("setting game state: ", gameState, coolDown)
+
 		if(coolDown > 0){
-			console.log("updating with coolDown", gameState)
 			this.setState({
 		        'word':  gameState.word, // keep state immutable
 	    		'guessedLetters': gameState.guessedLetters,
@@ -140,7 +129,6 @@ export default class Room extends React.Component {
 	    		'coolDown': coolDown
 			})
 		} else {
-			console.log("updating without coolDown", gameState)
 			this.setState({
 		        'word':  gameState.word, // keep state immutable
 	    		'guessedLetters': gameState.guessedLetters,
@@ -150,10 +138,12 @@ export default class Room extends React.Component {
 		}
 	}
 
+	//show fire if low on guesses
 	showFire(){
 		document.getElementById("fire").style.display = "block";
 	}
 
+	//on lose/win Animations
 	runAnimation(choice){
 		if(this.state.background === "sea"){
 			document.getElementById("gallowMan").style.display = "block";
@@ -226,8 +216,8 @@ export default class Room extends React.Component {
 		}
 	}
 
+	// Functiong for when game is won or lost
 	setEndGameState(gameState, timeUntilNextGame){
-		// console.log("setting game state END: ", gameState, timeUntilNextGame)
 			this.setState({
 		        'word':  gameState.word, // keep state immutable
 	    		'guessedLetters': gameState.guessedLetters,
@@ -238,7 +228,6 @@ export default class Room extends React.Component {
 	}
 
 	render() {
-		console.log("RENDER ROOM", this.state)
 		var guessedLettersUpper = this.state.guessedLetters.map((letter)=>{return letter.toUpperCase()});
 		return(
 			<div className="room">
@@ -255,7 +244,6 @@ export default class Room extends React.Component {
 				  <select name="select" className="dropMenu"
 				     onChange = {(e) => {
 				    	this.state.background = e.target.value;
-				    	console.log("back", this.state.background)
 				    	this.forceUpdate()
 				    }}>
 					<option value="snowy" >Snowy winter</option> 
