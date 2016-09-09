@@ -12,6 +12,7 @@ export default class GameBoard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+		  before: '',
 		  buttontext: 'Pro Mode',
 		  before: 'nothing'
 		};
@@ -33,7 +34,7 @@ export default class GameBoard extends React.Component {
 		else{
 			this.props.serverAPI.onProGame("proOn");
 			this.setState({buttontext: 'Normal Mode'})
-			this.state.before =document.getElementsByClassName('back')[0].id
+			this.state.before = document.getElementsByClassName('back')[0].id;
 			document.getElementsByClassName('back')[0].id = "proMode"
 			document.getElementsByClassName('navbar')[0].id = "proMode"
 			document.getElementsByClassName('game-title')[0].id = "proMode"
