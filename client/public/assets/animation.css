@@ -34,10 +34,7 @@
 canvas {
   display: block;
 }
-.back{
-  position: absolute;
-  z-index: 10; 
-}
+
 .dropMenu{
   position: absolute;
   z-index: 100; 
@@ -64,6 +61,29 @@ canvas {
   background-image: url("http://www.publicdomainpictures.net/pictures/30000/velka/underwater-treasures.jpg");
   background-position: center;
   background-size:cover; 
+}
+#proMode {
+  position: absolute;
+  z-index: 0;
+  background-image: none;
+  background-position: center;
+  background-size:cover; 
+  background-color: black;
+}
+#proModeKK{
+  background-color: #d7d802;
+  color: #232323;
+}
+.alphabet-guessed#proModeKK{
+  background-color: #e49709;
+  color: #232323;
+}
+
+.game-title#proModeKK{
+  background-color: #464540;
+}
+.navbar#proModeKK{
+  background-color: #464540;
 }
 .alphabets-inactive{
 	background: red

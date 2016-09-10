@@ -11,10 +11,37 @@ export default class GameBoard extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+		  before: '',
+		  buttontext: 'Pro Mode',
+		  before: 'nothing'
+		};
+		this.trackClicks = 0;
 	}
 
 	_ButtonClick() {
-		this.props.serverAPI.onProGame();
+		this.trackClicks += 1;
+		if (this.trackClicks %2 === 0){
+			this.props.serverAPI.onProGame("proOff");
+			this.setState({buttontext: 'Pro Mode'})
+			document.getElementsByClassName('back')[0].id = this.state.before;
+			document.getElementsByClassName('navbar')[0].id = "4"
+			document.getElementsByClassName('game-title')[0].id = "4"
+			for (var i = 0; i < document.getElementsByClassName('alphabet').length; i++) {
+				document.getElementsByClassName('alphabet')[i].id= "4"
+			}
+		}
+		else{
+			this.props.serverAPI.onProGame("proOn");
+			this.setState({buttontext: 'Normal Mode'})
+			this.state.before = document.getElementsByClassName('back')[0].id;
+			document.getElementsByClassName('back')[0].id = "proMode"
+			document.getElementsByClassName('navbar')[0].id = "proMode"
+			document.getElementsByClassName('game-title')[0].id = "proMode"
+			for (var i = 0; i < document.getElementsByClassName('alphabet').length; i++) {
+				document.getElementsByClassName('alphabet')[i].id= "proModeKK"
+			}
+		}
 	}
 
 	render() {
@@ -33,7 +60,7 @@ export default class GameBoard extends React.Component {
 						<div id="guessed-row">
 							<GuessedLetters guessedLetters={guessedLettersUpper} />
 							<RemainingGuess remainingGuesses={this.props.remainingGuesses} />
-							<button className="btn btn-lg btn-danger" onClick={this._ButtonClick.bind(this)}> Pro Mode </button>
+							<button className="btn btn-lg btn-danger proMode" onClick={this._ButtonClick.bind(this)}> {this.state.buttontext} </button>
 						</div>
 						<div id="theword-row">
 							<Word word={this.props.word} />
